@@ -34,7 +34,9 @@ postController.getAll = (req, res) => {
   db.Post.find({}).populate({
     // path: _creator means it returns not just the whole objectid for creator. tyr with populate to see
     path: '_creator',
-    select: 'username'
+    select: 'username',
+    select: 'createdAt',
+    select: 'isDeleted',
   }).then((posts) => {
     return res.status(200).json({
       success: true,

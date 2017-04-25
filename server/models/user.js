@@ -16,6 +16,8 @@ const userSchema = new Schema({
     required: true,
     minlength: [6, 'password isnt long enough'],
   },
+  createdAt: { type: Date, default: Date.now },
+  isDeleted: { type: Boolean, default: false },
 });
 
 const User = mongoose.model('User', userSchema);
