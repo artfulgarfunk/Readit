@@ -2,6 +2,9 @@ import db from './../models';
 const postController = {};
 // make it an empty object first
 
+// this is what the controller actually sends in the body of the request.
+// doesn't necessarily send all fields of post model, e.g. excludes _comments in this case
+// however when comment model is made, it has access to the post model and so modifies it
 postController.post = (req, res) => {
   const {
     title,
@@ -32,11 +35,8 @@ postController.post = (req, res) => {
 
 postController.getAll = (req, res) => {
   db.Post.find({}).populate({
-    // path: _creator means it returns not just the whole objectid for creator. tyr with populate to see
     path: '_creator',
-    select: 'username',
-    select: 'createdAt',
-    select: 'isDeleted',
+    select: 'username createdAt isDeleted -_id'
   }).then((posts) => {
     return res.status(200).json({
       success: true,

@@ -12,7 +12,8 @@ const postSchema = new Schema({
   isDeleted: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   _creator: { type: Schema.ObjectId, ref: 'User'},
-  // now has direct reference to user
+  _comments: [{ type: Schema.ObjectId, ref: 'Comment'}]
+  // empty comments array by default
 });
 
 const Post = mongoose.model('Post', postSchema);
